@@ -68,9 +68,9 @@ body {
 }
 
 @keyframes pulseArrow {
-  0% { transform: translateX(0px); }
-  50% { transform: translateX(6px); }
-  100% { transform: translateX(0px); }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(6px); }
+  100% { transform: translateY(0px); }
 }
 
 .arrow-pulse {
@@ -90,5 +90,22 @@ body {
 
 .animate-fadeIn {
   animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Portfolio sections: fade in after card transition */
+@keyframes sectionsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.portfolio-sections-enter {
+  animation: sectionsFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+  opacity: 0;
 }
 
