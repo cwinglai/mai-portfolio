@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import NameCard3D from "../components/NameCard3D";
+import HexBackground from "../components/HexBackground";
 
 export default function Home() {
   const [flipped, setFlipped] = useState(false);
@@ -21,6 +22,12 @@ export default function Home() {
 
   const typingDuration = 1000;
   const arrowDelay = 150;
+
+  // Lock scroll on landing screen
+  useEffect(() => {
+    document.body.style.overflow = entered ? "auto" : "hidden";
+    return () => { document.body.style.overflow = "auto"; };
+  }, [entered]);
 
   // Welcome fade-in on first load
   useEffect(() => {
@@ -63,7 +70,8 @@ export default function Home() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
+            } else {
+              entry.target.classList.remove("visible");
             }
           });
         },
@@ -187,6 +195,15 @@ export default function Home() {
       ) : (
         /* LANDING LAYOUT — Centered card */
         <div className="relative flex flex-col items-center min-h-screen justify-center">
+          <HexBackground />
+          {/* Fade overlay: transparent top → solid portfolio color at bottom */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 1%, #8A9ABF 75%, #92A3C2 100%)",
+            }}
+          />
           {/* WELCOME — hide after card is flipped */}
           {!flipped && (
             <h1
