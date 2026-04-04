@@ -109,6 +109,28 @@ body {
   opacity: 0;
 }
 
+/* Cloud background drift animations */
+@keyframes cloudDrift1 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(80px, 40px) scale(1.08); }
+}
+@keyframes cloudDrift2 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(-60px, 55px) scale(0.94); }
+}
+@keyframes cloudDrift3 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(50px, -45px) scale(1.06); }
+}
+@keyframes cloudDrift4 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(-70px, -35px) scale(1.05); }
+}
+@keyframes cloudDrift5 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  100% { transform: translate(55px, -30px) scale(0.96); }
+}
+
 /* Scroll reveal base states */
 .reveal,
 .reveal-left,
