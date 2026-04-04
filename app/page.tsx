@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import NameCard3D from "../components/NameCard3D";
 import SnowBackground from "../components/SnowBackground";
 import CloudBackground from "../components/CloudBackground";
@@ -298,8 +299,12 @@ export default function Home() {
                   href="https://github.com/cwinglai/HoverTime"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col h-full bg-white/10 border border-white/10 p-6 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out"
+                  className="group flex flex-col h-full bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out overflow-hidden"
                 >
+                  <div className="relative w-full h-40 shrink-0">
+                    <Image src="/images/hovertime.png" alt="HoverTime" fill className="object-cover object-top" />
+                  </div>
+                  <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold">HoverTime</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
@@ -314,6 +319,7 @@ export default function Home() {
                       <span key={t} className="px-2.5 py-0.5 bg-white/10 border border-white/15 rounded-full text-xs text-white/65">{t}</span>
                     ))}
                   </div>
+                  </div>
                 </a>
               </div>
 
@@ -323,8 +329,12 @@ export default function Home() {
                   href="https://github.com/cwinglai/NBA-ML-Predictor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col h-full bg-white/10 border border-white/10 p-6 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out"
+                  className="group flex flex-col h-full bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out overflow-hidden"
                 >
+                  <div className="relative w-full h-40 shrink-0">
+                    <Image src="/images/nba-game-outcome-predictor.png" alt="NBA ML Predictor" fill className="object-cover object-top" />
+                  </div>
+                  <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold">NBA ML Predictor</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
@@ -339,6 +349,7 @@ export default function Home() {
                       <span key={t} className="px-2.5 py-0.5 bg-white/10 border border-white/15 rounded-full text-xs text-white/65">{t}</span>
                     ))}
                   </div>
+                  </div>
                 </a>
               </div>
 
@@ -348,8 +359,12 @@ export default function Home() {
                   href="https://github.com/cwinglai/WhipMatch"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col h-full bg-white/10 border border-white/10 p-6 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out"
+                  className="group flex flex-col h-full bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out overflow-hidden"
                 >
+                  <div className="relative w-full h-40 shrink-0">
+                    <Image src="/images/whipmatch.png" alt="WhipMatch" fill className="object-cover" />
+                  </div>
+                  <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold">WhipMatch</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
@@ -364,6 +379,7 @@ export default function Home() {
                       <span key={t} className="px-2.5 py-0.5 bg-white/10 border border-white/15 rounded-full text-xs text-white/65">{t}</span>
                     ))}
                   </div>
+                  </div>
                 </a>
               </div>
 
@@ -373,8 +389,12 @@ export default function Home() {
                   href="https://github.com/CMPUT301W26avatar/avatar-state"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col h-full bg-white/10 border border-white/10 p-6 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out"
+                  className="group flex flex-col h-full bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out overflow-hidden"
                 >
+                  <div className="relative w-full h-40 shrink-0">
+                    <Image src="/images/lotteryapp.jpg" alt="LotteryApp" fill className="object-cover" />
+                  </div>
+                  <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold">LotteryApp</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
@@ -389,6 +409,7 @@ export default function Home() {
                       <span key={t} className="px-2.5 py-0.5 bg-white/10 border border-white/15 rounded-full text-xs text-white/65">{t}</span>
                     ))}
                   </div>
+                  </div>
                 </a>
               </div>
 
@@ -396,20 +417,82 @@ export default function Home() {
           </section>
 
           <section id="skills" className="scroll-mt-28">
-            <h2 className="text-4xl font-bold mb-6 reveal">Skills</h2>
-            <div className="grid md:grid-cols-3 gap-8 text-white/80">
-              <div className="reveal" style={{ transitionDelay: "0ms" }}>
-                <h3 className="font-semibold mb-2">Languages</h3>
-                <p>Python • C • JavaScript • SQL</p>
-              </div>
-              <div className="reveal" style={{ transitionDelay: "100ms" }}>
-                <h3 className="font-semibold mb-2">AI & Data</h3>
-                <p>Scikit-learn • Pandas • NumPy • Logistic Regression</p>
-              </div>
-              <div className="reveal" style={{ transitionDelay: "200ms" }}>
-                <h3 className="font-semibold mb-2">Tools</h3>
-                <p>Git • MongoDB • Chrome APIs • VS Code</p>
-              </div>
+            <h2 className="text-4xl font-bold mb-8 reveal">Skills</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                {
+                  label: "Languages", delay: "0ms",
+                  icons: [
+                    { name: "Python",     src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",                    glow: "#FFD43B" },
+                    { name: "SQL",        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg", glow: "#F29111" },
+                    { name: "JavaScript", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",             glow: "#F7DF1E" },
+                    { name: "Java",       src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",                        glow: "#ED8B00" },
+                    { name: "C",          src: "https://cdn.simpleicons.org/c/ffffff",                                                                        glow: "#A8B9CC" },
+                    { name: "HTML",       src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",                       glow: "#E34F26" },
+                    { name: "CSS",        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",                         glow: "#1572B6" },
+                  ],
+                },
+                {
+                  label: "Data & ML", delay: "80ms",
+                  icons: [
+                    { name: "Pandas",       src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",           glow: "#150458" },
+                    { name: "NumPy",        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg",             glow: "#4DABCF" },
+                    { name: "Scikit-learn", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg", glow: "#F7931E" },
+                    { name: "Matplotlib",   src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg",   glow: "#11557C" },
+                    { name: "Firestore",    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",       glow: "#FFCA28" },
+                    { name: "Tableau",      src: "/images/tableau.png",                                                                            glow: "#2166b0" },
+                  ],
+                },
+                {
+                  label: "Tools & Platforms", delay: "160ms",
+                  icons: [
+                    { name: "Git",        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",         glow: "#F05032" },
+                    { name: "MongoDB",    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg", glow: "#47A248" },
+                    { name: "VS Code",    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",   glow: "#007ACC" },
+                    { name: "Excel",      src: "/images/excel.png",                                                                              glow: "#217346" },
+                    { name: "Android",    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg", glow: "#3DDC84" },
+                    { name: "Swift",      src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg",     glow: "#FA7343" },
+                    { name: "DevTools",   src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/chrome/chrome-original.svg",   glow: "#4285F4" },
+                  ],
+                },
+                {
+                  label: "Frameworks", delay: "240ms",
+                  icons: [
+                    { name: "React",   src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",   glow: "#61DAFB" },
+                    { name: "Next.js", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", glow: "#FFFFFF" },
+                    { name: "Node.js", src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", glow: "#539E43" },
+                  ],
+                },
+              ].map(({ label, delay, icons }) => (
+                <div
+                  key={label}
+                  className="reveal bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md p-6"
+                  style={{ transitionDelay: delay }}
+                >
+                  <h3 className="text-sm font-semibold tracking-widest uppercase text-white/60 mb-5">{label}</h3>
+                  <div className="flex flex-wrap gap-5">
+                    {icons.map(({ name, src, glow }) => (
+                      <div key={name} className="group flex flex-col items-center gap-2 cursor-default">
+                        <div
+                          className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 transition-all duration-300 group-hover:-translate-y-1"
+                          onMouseEnter={e => {
+                            (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 16px 3px ${glow}55, 0 4px 12px rgba(0,0,0,0.2)`;
+                            (e.currentTarget as HTMLDivElement).style.borderColor = `${glow}66`;
+                          }}
+                          onMouseLeave={e => {
+                            (e.currentTarget as HTMLDivElement).style.boxShadow = "";
+                            (e.currentTarget as HTMLDivElement).style.borderColor = "";
+                          }}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={src} alt={name} width={28} height={28} />
+                        </div>
+                        <span className="text-xs text-white/55 group-hover:text-white/90 transition-colors duration-200">{name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 
