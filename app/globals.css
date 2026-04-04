@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Plank";
+  src: url("/fonts/PLANK___.TTF") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -107,6 +115,16 @@ body {
 .portfolio-sections-enter {
   animation: sectionsFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
   opacity: 0;
+}
+
+/* Screen transition: glass portal expand/collapse */
+@keyframes portalCover {
+  from { clip-path: circle(0% at 50% 50%); }
+  to   { clip-path: circle(160% at 50% 50%); }
+}
+@keyframes portalUncover {
+  from { clip-path: circle(160% at 50% 50%); }
+  to   { clip-path: circle(0% at 50% 50%); }
 }
 
 /* Cloud background drift animations */

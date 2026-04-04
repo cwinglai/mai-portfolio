@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import NameCard3D from "../components/NameCard3D";
-import HexBackground from "../components/HexBackground";
+import SnowBackground from "../components/SnowBackground";
 import CloudBackground from "../components/CloudBackground";
 
 export default function Home() {
@@ -12,13 +12,26 @@ export default function Home() {
   const [typingDone, setTypingDone] = useState(false);
   const [showArrow, setShowArrow] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [transitionPhase, setTransitionPhase] = useState<"none" | "cover" | "uncover">("none");
 
   function handleViewPortfolio() {
-    setExiting(true);
+    setTransitionPhase("cover");
     setTimeout(() => {
-      setExiting(false);
       setEntered(true);
-    }, 400);
+      setExiting(false);
+      setTransitionPhase("uncover");
+    }, 680);
+    setTimeout(() => setTransitionPhase("none"), 1300);
+  }
+
+  function handleBackToLanding() {
+    setTransitionPhase("cover");
+    setTimeout(() => {
+      setEntered(false);
+      setFlipped(false);
+      setTransitionPhase("uncover");
+    }, 680);
+    setTimeout(() => setTransitionPhase("none"), 1300);
   }
 
   const typingDuration = 1000;
@@ -35,7 +48,6 @@ export default function Home() {
     const timer = setTimeout(() => {
       setShowWelcome(true);
     }, 150);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -44,22 +56,15 @@ export default function Home() {
     if (!entered) {
       setTypingDone(false);
       setShowArrow(false);
-
-      const typingTimer = setTimeout(() => {
-        setTypingDone(true);
-        
-      }, typingDuration);
-
-      const arrowTimer = setTimeout(() => {
-        setShowArrow(true);
-      }, typingDuration + arrowDelay);
-
+      const typingTimer = setTimeout(() => setTypingDone(true), typingDuration);
+      const arrowTimer = setTimeout(() => setShowArrow(true), typingDuration + arrowDelay);
       return () => {
         clearTimeout(typingTimer);
         clearTimeout(arrowTimer);
       };
     }
   }, [entered]);
+
 
   // Scroll reveal via IntersectionObserver
   useEffect(() => {
@@ -102,6 +107,23 @@ export default function Home() {
       {/* CLOUD BACKGROUND — portfolio view only */}
       {entered && <CloudBackground />}
 
+      {/* GLASS PORTAL TRANSITION OVERLAY */}
+      {transitionPhase !== "none" && (
+        <div
+          className="fixed inset-0 z-[200] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(175,195,225,0.82) 0%, rgba(140,163,196,0.90) 50%, rgba(120,145,182,0.95) 100%)",
+            backdropFilter: "blur(18px)",
+            WebkitBackdropFilter: "blur(18px)",
+            animation:
+              transitionPhase === "cover"
+                ? "portalCover 0.68s cubic-bezier(0.76, 0, 0.24, 1) forwards"
+                : "portalUncover 0.58s cubic-bezier(0.76, 0, 0.24, 1) forwards",
+          }}
+        />
+      )}
+
       {/* STICKY NAV */}
       {entered && (
         <div className="sticky top-0 z-50 backdrop-blur-md bg-white/10 border-b border-white/20">
@@ -109,8 +131,8 @@ export default function Home() {
 
             {/* LOGO */}
             <div className="text-lg font-bold tracking-wide">
-              <span className="bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                {"<WL/>"}
+              <span className="bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent" style={{ fontFamily: "Plank, sans-serif" }}>
+                {"wing"}
               </span>
             </div>
 
@@ -157,29 +179,25 @@ export default function Home() {
         /* SPLIT LAYOUT — Desktop: 2 columns, Mobile: Stacked */
         <div className="relative z-10 min-h-[80vh] flex items-center px-8 py-24">
           <div className="max-w-7xl mx-auto w-full grid md:grid-cols-[45%_55%] gap-12 items-center">
-            {/* LEFT COLUMN — Card */}
+            {/* LEFT COLUMN — Hero name */}
             <div className="flex justify-center md:justify-start">
               <div
-                className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                onClick={handleBackToLanding}
+                className="cursor-pointer select-none transition-all duration-300 hover:scale-105"
                 style={{
-                  transform: exiting
-                    ? "translateY(0) scale(0.92)"
-                    : "translateY(0) scale(0.85)",
-                  opacity: exiting ? 0.92 : 1,
+                  fontFamily: "Plank, cursive",
+                  fontWeight: 400,
+                  fontSize: "clamp(4rem, 9vw, 7.5rem)",
+                  lineHeight: 1,
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(220,235,255,0.90) 50%, rgba(185,210,250,0.80) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 0 30px rgba(200,225,255,0.75)) drop-shadow(0 0 60px rgba(170,205,255,0.45)) drop-shadow(0 0 100px rgba(150,190,255,0.25)) drop-shadow(0 2px 8px rgba(60,80,140,0.3))",
+                  letterSpacing: "-0.02em",
                 }}
               >
-                <NameCard3D
-                  flipped={flipped}
-                  onFlip={() => setFlipped(true)}
-                  onFlipBack={() => setFlipped(false)}
-                  onViewPortfolio={handleViewPortfolio}
-                  onBackToHome={() => {
-                    setEntered(false);
-                    setFlipped(false);
-                  }}
-                  isExiting={exiting}
-                  isOnPortfolioPage={entered}
-                />
+                Wing<br />Lai
               </div>
             </div>
 
@@ -199,8 +217,8 @@ export default function Home() {
       ) : (
         /* LANDING LAYOUT — Centered card */
         <div className="relative flex flex-col items-center min-h-screen justify-center">
-          <HexBackground />
-          {/* Fade overlay: transparent top → solid portfolio color at bottom */}
+          <SnowBackground />
+          {/* Fade overlay */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -208,36 +226,32 @@ export default function Home() {
                 "linear-gradient(to bottom, transparent 1%, #8A9ABF 75%, #92A3C2 100%)",
             }}
           />
-          {/* WELCOME — hide after card is flipped */}
+          {/* WELCOME */}
           {!flipped && (
             <h1
-              className={`text-white/80 text-lg font-medium mb-2 transition-all duration-1000 ease-out ${
-                showWelcome
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-6"
+              className={`text-white/80 text-lg font-medium mb-2 transition-all duration-1000 ease-out z-10 ${
+                showWelcome ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
               welcome.
             </h1>
           )}
 
-          {/* CLICK ME — hide after card is flipped */}
+          {/* CLICK ME */}
           {!flipped && (
-            <div className="mb-8 flex items-center text-white/80 text-lg font-medium">
+            <div className="mb-8 flex items-center text-white/80 text-lg font-medium z-10">
               <span className={`typewriter lowercase ${typingDone ? "finished" : ""}`}>
                 click me
               </span>
               {showArrow && (
-                <span className="arrow-enter arrow-pulse text-2xl ml-2">
-                  ↓
-                </span>
+                <span className="arrow-enter arrow-pulse text-2xl ml-2">↓</span>
               )}
             </div>
           )}
 
-          {/* CARD — scale down when exiting, then settle into expanded layout when entered */}
+          {/* CARD */}
           <div
-            className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-10"
             style={{
               transform: exiting
                 ? "translateY(0) scale(0.92)"
@@ -250,10 +264,7 @@ export default function Home() {
               onFlip={() => setFlipped(true)}
               onFlipBack={() => setFlipped(false)}
               onViewPortfolio={handleViewPortfolio}
-              onBackToHome={() => {
-                setEntered(false);
-                setFlipped(false);
-              }}
+              onBackToHome={handleBackToLanding}
               isExiting={exiting}
               isOnPortfolioPage={entered}
             />
