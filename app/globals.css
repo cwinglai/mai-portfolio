@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.font-space {
+  font-family: var(--font-space-grotesk);
+}
+
 @font-face {
   font-family: "Plank";
   src: url("/fonts/PLANK___.TTF") format("truetype");
@@ -35,6 +39,37 @@ body {
     #A9B4D1 100%
   );
   color: var(--foreground);
+}
+
+@keyframes checkmark-circle {
+  from { stroke-dashoffset: 166; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes checkmark-tick {
+  from { stroke-dashoffset: 48; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes checkmark-fade-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.checkmark-svg {
+  animation: checkmark-fade-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: checkmark-circle 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards;
+}
+
+.checkmark-tick {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkmark-tick 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
 }
 
 @keyframes typing {
@@ -184,4 +219,31 @@ body {
   transform: translate(0);
   filter: blur(0);
 }
+
+.hero-name {
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-name:hover {
+  transform: scale(1.04) translateY(-3px);
+  filter:
+    drop-shadow(0 0 40px rgba(200,225,255,0.95))
+    drop-shadow(0 0 80px rgba(170,205,255,0.65))
+    drop-shadow(0 0 120px rgba(150,190,255,0.40))
+    drop-shadow(0 4px 12px rgba(60,80,140,0.35));
+}
+
+.hero-name:active {
+  transform: scale(0.97) translateY(1px);
+  transition-duration: 0.1s;
+  filter:
+    drop-shadow(0 0 15px rgba(200,225,255,0.50))
+    drop-shadow(0 0 30px rgba(170,205,255,0.30))
+    drop-shadow(0 1px 4px rgba(60,80,140,0.25));
+}
+
 

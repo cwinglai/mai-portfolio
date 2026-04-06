@@ -277,11 +277,11 @@ export default function NameCard3D({
               style={{ transform: "translateZ(30px)" }}
             >
               <p className="text-white/90 text-sm leading-relaxed max-w-[280px] mb-6">
-                Welcome to my portfolio!
+                Hey, I'm Wing! I like building things that are useful, fun, or a little bit of both.
 
 
 
-                Click below to find out more.
+                Come take a look.
               </p>
               <button
                 type="button"

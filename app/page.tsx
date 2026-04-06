@@ -6,6 +6,9 @@ import NameCard3D from "../components/NameCard3D";
 import SnowBackground from "../components/SnowBackground";
 import CloudBackground from "../components/CloudBackground";
 
+// Replace with your Web3Forms access key from https://web3forms.com
+const WEB3FORMS_ACCESS_KEY = "04d6a1b1-1fc7-42a1-a6d4-206390403640";
+
 export default function Home() {
   const [flipped, setFlipped] = useState(false);
   const [entered, setEntered] = useState(false);
@@ -14,6 +17,28 @@ export default function Home() {
   const [showArrow, setShowArrow] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [transitionPhase, setTransitionPhase] = useState<"none" | "cover" | "uncover">("none");
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  async function handleFormSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setFormStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ access_key: WEB3FORMS_ACCESS_KEY, ...formData }),
+      });
+      if (res.ok) {
+        setFormStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  }
 
   function handleViewPortfolio() {
     setTransitionPhase("cover");
@@ -158,6 +183,18 @@ export default function Home() {
                 Skills
               </button>
               <button
+                onClick={() => scrollTo("experience")}
+                className="relative pb-1 hover:text-white transition-colors duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
+              >
+                Experience
+              </button>
+              <button
+                onClick={() => scrollTo("education")}
+                className="relative pb-1 hover:text-white transition-colors duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
+              >
+                Education
+              </button>
+              <button
                 onClick={() => scrollTo("resume")}
                 className="relative pb-1 hover:text-white transition-colors duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
               >
@@ -181,35 +218,41 @@ export default function Home() {
         <div className="relative z-10 min-h-[80vh] flex items-center px-8 py-24">
           <div className="max-w-7xl mx-auto w-full grid md:grid-cols-[45%_55%] gap-12 items-center">
             {/* LEFT COLUMN — Hero name */}
-            <div className="flex justify-center md:justify-start">
-              <div
-                onClick={handleBackToLanding}
-                className="cursor-pointer select-none transition-all duration-300 hover:scale-105"
-                style={{
-                  fontFamily: "Plank, cursive",
-                  fontWeight: 400,
-                  fontSize: "clamp(4rem, 9vw, 7.5rem)",
-                  lineHeight: 1,
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(220,235,255,0.90) 50%, rgba(185,210,250,0.80) 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 0 30px rgba(200,225,255,0.75)) drop-shadow(0 0 60px rgba(170,205,255,0.45)) drop-shadow(0 0 100px rgba(150,190,255,0.25)) drop-shadow(0 2px 8px rgba(60,80,140,0.3))",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Wing<br />Lai
+            <div className="flex justify-center md:justify-start reveal-left">
+              <div className="relative inline-block">
+                <div
+                  onClick={handleBackToLanding}
+                  className="hero-name"
+                  style={{
+                    fontFamily: "Plank, cursive",
+                    fontWeight: 400,
+                    fontSize: "clamp(4rem, 9vw, 7.5rem)",
+                    lineHeight: 1,
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(220,235,255,0.90) 50%, rgba(185,210,250,0.80) 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    filter: "drop-shadow(0 0 30px rgba(200,225,255,0.75)) drop-shadow(0 0 60px rgba(170,205,255,0.45)) drop-shadow(0 0 100px rgba(150,190,255,0.25)) drop-shadow(0 2px 8px rgba(60,80,140,0.3))",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  Wing<br />Lai
+                </div>
               </div>
             </div>
 
             {/* RIGHT COLUMN — About */}
-            <div id="about" className="text-left scroll-mt-28">
-              <h2 className="text-4xl font-bold mb-6">About</h2>
+            <div id="about" className="text-left scroll-mt-28 reveal-right">
+              <h2 className="text-4xl font-bold mb-6 font-space">About</h2>
               <div className="rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-md">
                 <p className="text-white/80 leading-relaxed">
-                  I'm a third year Computer Science student at the University of Alberta. I'm focused on building practical AI systems
-                  and structured software. I enjoy turning data-driven ideas into usable
-                  tools and refining how I build through iteration.
+                  I'm a third year Computer Science major with a Psychology minor at the University of Alberta. Two fields that are really about the same thing: understanding how systems think. Most of what I do involves a lot of tweaking, adjusting, and trying again until it clicks. That being said, I enjoy building with AI and working with data, especially when the end result is something people can actually use.
+
+Outside of school, you can find me on the golf course, where the process is pretty much the same, just with more fresh air.
+
+
+
+
                 </p>
               </div>
             </div>
@@ -280,7 +323,7 @@ export default function Home() {
           {/* About section is now in hero split layout above */}
           <section id="about" className="scroll-mt-28 hidden">
             <div className="rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-md">
-              <h2 className="text-4xl font-bold mb-6">About</h2>
+              <h2 className="text-4xl font-bold mb-6 font-space">About</h2>
               <p className="text-white/80 leading-relaxed max-w-3xl">
               I’m a third year Computer Science student at the University of Alberta. I'm focused on building practical AI systems
               and structured software. I enjoy turning data-driven ideas into usable
@@ -290,7 +333,7 @@ export default function Home() {
           </section>
 
           <section id="projects" className="scroll-mt-28">
-            <h2 className="text-4xl font-bold mb-6 reveal">Projects</h2>
+            <h2 className="text-4xl font-bold mb-6 reveal font-space text-center">Projects</h2>
             <div className="grid md:grid-cols-2 gap-8">
 
               {/* HoverTime */}
@@ -306,7 +349,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold">HoverTime</h3>
+                    <h3 className="text-xl font-semibold">HoverTime Chrome Extension</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                     </svg>
@@ -332,11 +375,11 @@ export default function Home() {
                   className="group flex flex-col h-full bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md hover:bg-white/15 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20 hover:border-white/25 transition-all duration-300 ease-out overflow-hidden"
                 >
                   <div className="relative w-full h-40 shrink-0">
-                    <Image src="/images/nba-game-outcome-predictor.png" alt="NBA ML Predictor" fill className="object-cover object-top" />
+                    <Image src="/images/nba-outcome.png" alt="NBA ML Predictor" fill className="object-cover object-top" />
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold">NBA ML Predictor</h3>
+                    <h3 className="text-xl font-semibold">NBA Machine Learning Predictor</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                     </svg>
@@ -396,7 +439,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col flex-1 p-6">
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold">LotteryApp</h3>
+                    <h3 className="text-xl font-semibold">Lottery App</h3>
                     <svg className="w-5 h-5 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                     </svg>
@@ -417,7 +460,7 @@ export default function Home() {
           </section>
 
           <section id="skills" className="scroll-mt-28">
-            <h2 className="text-4xl font-bold mb-8 reveal">Skills</h2>
+            <h2 className="text-4xl font-bold mb-8 reveal font-space text-center">Skills</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 {
@@ -496,10 +539,75 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="resume" className="scroll-mt-28">
-            <h2 className="text-4xl font-bold mb-6 reveal">Resume</h2>
+          <section id="experience" className="scroll-mt-28">
+            <h2 className="text-4xl font-bold mb-12 reveal font-space text-center">Experience</h2>
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/20 -translate-x-1/2 hidden md:block" />
+
+              {/* Kinjo — right */}
+              <div className="relative grid md:grid-cols-2 gap-8 mb-16 reveal">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white/70 border-2 border-white/90 hidden md:block z-10" />
+                <div className="flex md:justify-end justify-start items-center md:pr-12">
+                  <span className="px-4 py-1.5 bg-white/15 border border-white/20 rounded-full text-sm text-white/80 backdrop-blur-sm whitespace-nowrap">
+                    May 2022 – July 2025
+                  </span>
+                </div>
+                <div className="md:pl-12">
+                  <div className="bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md p-6">
+                    <h3 className="text-lg font-semibold mb-1">Kinjo Sushi &amp; Grill</h3>
+                    <p className="text-white/70 text-sm mb-1">Server</p>
+                    <p className="text-white/50 text-xs">Calgary, AB &amp; Edmonton, AB</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CASA Mental Health — left */}
+              <div className="relative grid md:grid-cols-2 gap-8 reveal">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white/70 border-2 border-white/90 hidden md:block z-10" />
+                <div className="md:pr-12 order-2 md:order-1">
+                  <div className="bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md p-6">
+                    <h3 className="text-lg font-semibold mb-1">CASA Mental Health</h3>
+                    <p className="text-white/70 text-sm mb-1">Administrative Assistant</p>
+                    <p className="text-white/50 text-xs">Edmonton, AB</p>
+                  </div>
+                </div>
+                <div className="flex md:justify-start justify-start items-center md:pl-12 order-1 md:order-2">
+                  <span className="px-4 py-1.5 bg-white/15 border border-white/20 rounded-full text-sm text-white/80 backdrop-blur-sm whitespace-nowrap">
+                    2023 – 2024
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="education" className="scroll-mt-28">
+            <h2 className="text-4xl font-bold mb-6 reveal font-space text-center">Education</h2>
+            <div className="reveal bg-white/10 border border-white/10 rounded-2xl backdrop-blur-md p-8" style={{ transitionDelay: "80ms" }}>
+              <div className="flex items-start gap-5 mb-6">
+                <Image src="/images/ualberta.png" alt="University of Alberta" width={52} height={52} className="shrink-0 mt-1 opacity-90" />
+                <div className="flex-1">
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-1 mb-1">
+                    <h3 className="text-xl font-semibold">University of Alberta</h3>
+                    <span className="text-white/60 text-sm">2024 &ndash; Expected April 2027</span>
+                  </div>
+                  <p className="text-white/80 mb-1">Bachelor of Science in Computer Science</p>
+                  <p className="text-white/60 text-sm">Minor in Psychology &middot; Edmonton, AB</p>
+                </div>
+              </div>
+              <h4 className="text-sm font-semibold tracking-widest uppercase text-white/60 mb-3">Relevant Coursework</h4>
+              <div className="flex flex-wrap gap-2">
+                {["Data Structures & Algorithms", "Machine Learning", "Software Engineering", "File & Database Management", "Reinforcement Learning"].map((c) => (
+                  <span key={c} className="px-2.5 py-0.5 bg-white/10 border border-white/15 rounded-full text-xs text-white/65">{c}</span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="resume" className="scroll-mt-28 flex flex-col items-center text-center">
+            <h2 className="text-4xl font-bold mb-6 reveal font-space text-center">Resume</h2>
             <p className="text-white/80 reveal" style={{ transitionDelay: "80ms" }}>
-              Download my resume below.
+              
             </p>
             <button
               onClick={() => {
@@ -508,15 +616,18 @@ export default function Home() {
                 link.download = "Wing_Lai_Resume.pdf";
                 link.click();
               }}
-              className="mt-6 px-6 py-3 bg-white/20 rounded-xl hover:bg-white/30 transition"
+              className="mt-6 px-6 py-3 bg-white/20 rounded-xl hover:bg-white/30 transition flex items-center gap-2"
             >
-              Download Resume
+              Download CV
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+              </svg>
             </button>
           </section>
 
           <section id="contact" className="scroll-mt-28">
-            <h2 className="text-4xl font-bold mb-2 reveal">Get In Touch</h2>
-            <p className="text-white/80 mb-8 reveal" style={{ transitionDelay: "80ms" }}>Open to 2026 internship opportunities.</p>
+            <h2 className="text-4xl font-bold mb-2 reveal font-space text-center">Get In Touch</h2>
+            <p className="text-white/80 mb-8 reveal text-center" style={{ transitionDelay: "80ms" }}>Open to 2026 internship opportunities.</p>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left: Contact Info */}
@@ -576,12 +687,16 @@ export default function Home() {
               </div>
 
               {/* Right: Contact Form */}
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 space-y-4 reveal-right" style={{ transitionDelay: "150ms" }}>
+              <form onSubmit={handleFormSubmit} className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 space-y-4 reveal-right" style={{ transitionDelay: "150ms" }}>
                 <div>
                   <label className="text-white/80 text-sm mb-1 block">Name</label>
                   <input
                     type="text"
+                    name="name"
+                    required
                     placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/50"
                   />
                 </div>
@@ -589,7 +704,11 @@ export default function Home() {
                   <label className="text-white/80 text-sm mb-1 block">Email</label>
                   <input
                     type="email"
+                    name="email"
+                    required
                     placeholder="your.email@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/50"
                   />
                 </div>
@@ -597,22 +716,46 @@ export default function Home() {
                   <label className="text-white/80 text-sm mb-1 block">Subject</label>
                   <input
                     type="text"
+                    name="subject"
+                    required
                     placeholder="Subject"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/50"
                   />
                 </div>
                 <div>
                   <label className="text-white/80 text-sm mb-1 block">Message</label>
                   <textarea
+                    name="message"
+                    required
                     placeholder="Tell me about your project..."
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/50 resize-none"
                   />
                 </div>
-                <button className="w-full py-3 bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl text-white font-semibold transition">
-                  Send Message
+                <button
+                  type="submit"
+                  disabled={formStatus === "sending"}
+                  className="w-full py-3 bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl text-white font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {formStatus === "sending" ? "Sending..." : "Send Message"}
                 </button>
-              </div>
+                {formStatus === "success" && (
+                  <div className="flex flex-col items-center gap-2 py-2">
+                    <svg className="checkmark-svg w-14 h-14" viewBox="0 0 52 52" fill="none">
+                      <circle className="checkmark-circle" cx="26" cy="26" r="25" stroke="rgba(134,239,172,0.9)" strokeWidth="2" fill="none" />
+                      <polyline className="checkmark-tick" points="14,27 22,35 38,17" stroke="rgba(134,239,172,0.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </svg>
+                    <p className="text-green-300 text-sm">Message sent successfully!</p>
+                  </div>
+                )}
+                {formStatus === "error" && (
+                  <p className="text-red-300 text-sm text-center">Something went wrong. Please try again.</p>
+                )}
+              </form>
             </div>
           </section>
           
