@@ -5,6 +5,7 @@ import Image from "next/image";
 import NameCard3D from "../components/NameCard3D";
 import SnowBackground from "../components/SnowBackground";
 import CloudBackground from "../components/CloudBackground";
+import WingLogo from "../components/WingLogo";
 
 // Replace with your Web3Forms access key from https://web3forms.com
 const WEB3FORMS_ACCESS_KEY = "04d6a1b1-1fc7-42a1-a6d4-206390403640";
@@ -156,11 +157,12 @@ export default function Home() {
           <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
 
             {/* LOGO */}
-            <div className="text-lg font-bold tracking-wide">
-              <span className="bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent" style={{ fontFamily: "Plank, sans-serif" }}>
+            <button onClick={handleBackToLanding} className="flex items-center gap-2 hover:opacity-80 transition">
+              <WingLogo size={32} />
+              <span className="text-lg font-bold tracking-wide bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent" style={{ fontFamily: "Plank, sans-serif" }}>
                 {"wing"}
               </span>
-            </div>
+            </button>
 
             {/* NAV LINKS */}
             <div className="flex gap-12 text-sm tracking-widest uppercase text-white/80">
