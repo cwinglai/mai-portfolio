@@ -27,6 +27,18 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Wing Lai",
   description: "Portfolio",
+  openGraph: {
+    title: "Wing Lai",
+    description: "Third-year Computer Science student at the University of Alberta. Explore my projects, skills, and experience.",
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wing Lai",
+    description: "Third-year Computer Science student at the University of Alberta. Explore my projects, skills, and experience.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function RootLayout({

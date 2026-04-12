@@ -235,11 +235,16 @@ body {
     drop-shadow(0 0 80px rgba(170,205,255,0.65))
     drop-shadow(0 0 120px rgba(150,190,255,0.40))
     drop-shadow(0 4px 12px rgba(60,80,140,0.35));
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-name:active {
   transform: scale(0.97) translateY(1px);
-  transition-duration: 0.1s;
+  transition:
+    transform 0.1s ease,
+    filter 0.1s ease;
   filter:
     drop-shadow(0 0 15px rgba(200,225,255,0.50))
     drop-shadow(0 0 30px rgba(170,205,255,0.30))
