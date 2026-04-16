@@ -85,7 +85,7 @@ export default function SnowBackground() {
       window.removeEventListener("resize", resize);
     };
   }, []);
-
+ //full pointers-events-none
   return (
     <canvas
       ref={canvasRef}

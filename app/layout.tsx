@@ -18,6 +18,8 @@ const caveat = Caveat({
   weight: ["700"],
 });
 
+
+
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
