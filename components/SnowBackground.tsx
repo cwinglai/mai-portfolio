@@ -13,7 +13,7 @@ interface Flake {
 //snowybackground add this function
 export default function SnowBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+//fsd
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
