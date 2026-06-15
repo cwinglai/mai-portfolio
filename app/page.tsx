@@ -564,7 +564,7 @@ Outside of school, you can find me on the golf course, where the process is pret
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white/70 border-2 border-white/90 hidden md:block z-10" />
                 <div className="flex md:justify-end justify-start items-center md:pr-12">
                   <span className="px-4 py-1.5 bg-white/15 border border-white/20 rounded-full text-sm text-white/80 backdrop-blur-sm whitespace-nowrap">
-                    May 2022 – July 2025
+                    May 2022 – Present (seasonal)
                   </span>
                 </div>
                 <div className="md:pl-12">
@@ -588,7 +588,7 @@ Outside of school, you can find me on the golf course, where the process is pret
                 </div>
                 <div className="flex md:justify-start justify-start items-center md:pl-12 order-1 md:order-2">
                   <span className="px-4 py-1.5 bg-white/15 border border-white/20 rounded-full text-sm text-white/80 backdrop-blur-sm whitespace-nowrap">
-                    2023 – 2024
+                    January 2023 – March 2025
                   </span>
                 </div>
               </div>
