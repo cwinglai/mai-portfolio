@@ -10,7 +10,7 @@ interface Flake {
   driftOffset: number; // phase for sinusoidal sway
   opacity: number;
 }
-//snowybackground add this function
+//snowybackground add this functions. .
 export default function SnowBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
